@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산 결과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="result-container">
+        <h1 class="result-title">계산 결과</h1>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% else %}
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>사용자</th>
+                    <th>학점</th>
+                    <th>IBT</th>
+                    <th>ITP</th>
+                    <th>IELTS</th>
+                    <th>가산점</th>
+                    <th>최종 점수</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>사용자 {{ loop.index }}</td>
+                    <td>{{ result.grade }}</td>
+                    <td>{{ result.ibt }}</td>
+                    <td>{{ result.itp }}</td>
+                    <td>{{ result.ielts }}</td>
+                    <td>{{ result.bonus }}</td>
+                    <td>{{ result.final_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <a href="/" class="back-button">다시 계산하기</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="result-footer">
+        <div class="guidance-box">
+            <p><strong>안내 사항:</strong></p>
+            <ol>
+                <li><strong>[뒤로 가기 버튼]</strong>을 누르면 계산된 값을 그대로 유지할 수 있습니다.</li>
+                <li>위 계산은 <strong>공식적인 효력이 없습니다.</strong> 본교의 정식 절차와 무관하며, 경희대 학생이 실습용으로 만든 홈페이지입니다. 산출 방법을 어림 짐작하여 <strong>[단순 참고 목적]</strong>으로 만들었습니다.</li>
+                <li>위 계산에서 <strong>[서류점수]</strong>는 <strong>10점 만점</strong>으로 계산합니다.</li>
+                <li>위 계산의 점수 환산은 본교의 "<strong>점수 환산표</strong>"를 토대로 계산합니다.</li>
+                <li>교환학생 <strong>최소 요구 점수</strong> 미충족 시 점수는 산출되지 않습니다.</li>
+                <li>
+                    <strong>가산점 항목:</strong>
+                    <ul>
+                        <li>봉사활동 100시간 이상인 경우 +1</li>
+                        <li>Global Collaborative Summer Program(GC) 수강자 과목당 +1점 (최대 +2점)</li>
+                        <li>Global Ambassador 활동 수료자 +1점 (최대 +1점)</li>
+                    </ul>
+                </li>
+                <li>동점자 발생 시, <strong>1) 학점, 2) 공인어학성적, 3) 서류점수</strong> 순으로 우선순위가 결정됩니다.</li>
+            </ol>
+        </div>
+    </footer>       
+</body>
+</html>
